@@ -14,12 +14,19 @@ We evaluate 7 state-of-the-art VLMs on MuSLR and find that they all struggle wit
 
 
 ![my_image](./assets/muslr.png)
-![muslr_stats](./assets/stats.png)
+
 
 Thus, we propose **LogiCAM**, a modular framework that applies formal logical rules to multimodal inputs, boosting GPT-4.1’s Chain-of-Thought performance by 14.13\%, and delivering even larger gains on complex logics such as first-order logic. 
 We also conduct a comprehensive error analysis, showing that around 70\% of failures stem from logical misalignment between modalities, offering key insights to guide future improvements.
 
 ![logicam](./assets/logicam.png)
+
+
+## Dataset Statistics
+![muslr_stats](./assets/stats.png)
+
+
+
 
 ## Dataset Format
 
