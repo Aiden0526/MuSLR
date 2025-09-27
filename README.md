@@ -45,7 +45,7 @@ Each data entry in the dataset is stored as a JSON object with the following fie
 Install the required dependencies with:
 
 ```bash
-pip install Pillow openai anthropic
+pip install Pillow openai
 ```
 
 
