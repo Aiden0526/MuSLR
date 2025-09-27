@@ -1,0 +1,509 @@
+Given the image, context and question, please solve the question following the below example.
+
+---
+Example:
+Image: <IMAGE1>
+
+Context:
+1.
+$$
+∃x (Article(x) ∧ Title(x, 'Financial Market Update')) → ∃y (Author(y) ∧ Byline(y, 'John Doe'))
+$$
+
+2.
+$$
+∃z (Person(z) ∧ Mentioned(z, 'Jane Smith') ∧ Discussed(z, 'Market Trends')) → ∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings'))
+$$
+
+3.
+$$
+∃x (Article(x) ∧ Title(x, 'Financial Market Update')) ∨ ∃z (Person(z) ∧ Mentioned(z, 'Jane Smith') ∧ Discussed(z, 'Market Trends'))
+$$
+
+4.
+$$
+∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings')) → ∃t (Person(t) ∧ Mentioned(t, 'CEO') ∧ InvolvedIn(t, 'Company Meeting'))
+$$
+
+
+Question:
+Which of the following statements can be derived from the given context and image?
+A. It is false that \u2203t (Person(t) \u2227 Mentioned(t, 'CEO') \u2227 InvolvedIn(t, 'Company Meeting')).
+B. \u2203t (Person(t) \u2227 Mentioned(t, 'CEO') \u2227 InvolvedIn(t, 'Company very potbellied Meeting')).
+C. \u2203t (Person(t) \u2227 Mentioned(t, 'CEO') \u2227 InvolvedIn(t, 'Company Meeting')).
+D. It is false that \u2203w (Report(w) \u2227 Subject(w, 'Quarterly Earnings')).
+
+
+Reasoning:
+
+ ✅ Syllogistic Reasoning Chain
+
+---
+
+ Step 1: SR1
+
+> FOL Rule:
+
+$$
+(P → (Q1 ∧ V2)) ∧ (R → S) ∧ (P ∨ R) ⊢ ((Q1 ∧ V2) ∨ S)
+$$
+
+Syllogism Format:
+
+ Major premise:
+  If there exists an article titled "Financial Market Update", then there exists an author with byline "John Doe" and an event named "Investor Conference".
+
+  $$
+  ∃x (Article(x) ∧ Title(x, 'Financial Market Update')) → (∃y (Author(y) ∧ Byline(y, 'John Doe')) ∧ ∃v (Event(v) ∧ Name(v, 'Investor Conference')))
+  $$
+
+  (from context)
+
+ Minor premise:
+  If Jane Smith is mentioned and discussed market trends, then there exists a report about quarterly earnings.
+
+  $$
+  ∃z (Person(z) ∧ Mentioned(z, 'Jane Smith') ∧ Discussed(z, 'Market Trends')) → ∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings'))
+  $$
+
+  (from context)
+
+ Auxiliary premise:
+  Either there exists an article titled "Financial Market Update", or Jane Smith is mentioned and discussed market trends.
+
+  $$
+  ∃x (Article(x) ∧ Title(x, 'Financial Market Update')) ∨ ∃z (Person(z) ∧ Mentioned(z, 'Jane Smith') ∧ Discussed(z, 'Market Trends'))
+  $$
+
+  (from context)
+
+ Conclusion:
+  Either there exists an author named John Doe and an event called "Investor Conference", or there exists a report on "Quarterly Earnings".
+
+  $$
+  (∃y (Author(y) ∧ Byline(y, 'John Doe')) ∧ ∃v (Event(v) ∧ Name(v, 'Investor Conference'))) ∨ ∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings'))
+  $$
+
+  (Step 1)
+
+---
+
+ Step 2: CR1 (Commonsense Reasoning)
+
+> FOL Rule:
+
+$$
+(Q1 → V1) ∧ ¬V1 ⊢ ¬Q1
+$$
+
+Logic Format (Commonsense):
+
+ Premise 1:
+  If John Doe is the author of the article, then the article mentions a financial analyst who contributed "Market Insights".
+
+  $$
+  ∃y (Author(y) ∧ Byline(y, 'John Doe')) → ∃u (Person(u) ∧ Mentioned(u, 'Financial Analyst') ∧ Contribution(u, 'Market Insights'))
+  $$
+
+  (from commonsense)
+
+ Premise 2:
+  There is no mention of any financial analyst who contributed "Market Insights".
+
+  $$
+  ¬∃u (Person(u) ∧ Mentioned(u, 'Financial Analyst') ∧ Contribution(u, 'Market Insights'))
+  $$
+
+  (from image — absence of content)
+
+ Conclusion:
+  Therefore, John Doe is not the author of the article.
+
+  $$
+  ¬∃y (Author(y) ∧ Byline(y, 'John Doe'))
+  $$
+
+  (Step 2)
+
+---
+
+ Step 3: SR2
+
+> FOL Rule:
+
+$$
+((Q1 ∧ V2) ∨ S) ∧ ¬(Q1 ∧ V2) ⊢ S
+$$
+
+Syllogism Format:
+
+ Major premise:
+  Either both John Doe is the author and the event is the "Investor Conference", or there exists a report on "Quarterly Earnings".
+
+  $$
+  (∃y (Author(y) ∧ Byline(y, 'John Doe')) ∧ ∃v (Event(v) ∧ Name(v, 'Investor Conference'))) ∨ ∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings'))
+  $$
+
+  (from Step 1)
+
+ Minor premise:
+  It is not the case that both John Doe is the author and the event is "Investor Conference".
+
+  $$
+  ¬(∃y (Author(y) ∧ Byline(y, 'John Doe')) ∧ ∃v (Event(v) ∧ Name(v, 'Investor Conference')))
+  $$
+
+  (from Step 2 — John Doe is not the author)
+
+ Conclusion:
+  Therefore, there exists a report on "Quarterly Earnings".
+
+  $$
+  ∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings'))
+  $$
+
+  (Step 3)
+
+---
+
+ Step 4: SR3
+
+> FOL Rule:
+
+$$
+((S ∧ V3) → T) ∧ (S ∧ V3) ⊢ T
+$$
+
+Syllogism Format:
+
+ Major premise:
+  If there is a report on "Quarterly Earnings" and the place is New York, then a CEO is mentioned as involved in a company meeting.
+
+  $$
+  (∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings')) ∧ ∃s (Place(s) ∧ Location(s, 'New York'))) → ∃t (Person(t) ∧ Mentioned(t, 'CEO') ∧ InvolvedIn(t, 'Company Meeting'))
+  $$
+
+  (from context)
+
+ Minor premise:
+  There is a report on "Quarterly Earnings" (from Step 3), and the place is New York.
+
+  $$
+  ∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings')) ∧ ∃s (Place(s) ∧ Location(s, 'New York'))
+  $$
+
+  (report from Step 3, place from image → V3)
+
+ Conclusion:
+  Therefore, there exists a person who is a CEO and is mentioned as being involved in a company meeting.
+
+  $$
+  ∃t (Person(t) ∧ Mentioned(t, 'CEO') ∧ InvolvedIn(t, 'Company Meeting'))
+  $$
+
+  (Step 4)
+
+
+---
+Final Evaluation:
+
+A.
+$\text{It is false that } ∃t (Person(t) ∧ Mentioned(t, 'CEO') ∧ InvolvedIn(t, 'Company Meeting'))$
+❌ Contradicts the conclusion of SR3, which affirms the existence of such a CEO.
+
+---
+
+B.
+$∃t (Person(t) ∧ Mentioned(t, 'CEO') ∧ InvolvedIn(t, 'Company very potbellied Meeting'))$
+❌ Invalid predicate; “Company very potbellied Meeting” is a malformed or nonsensical phrase and not supported by any context or commonsense.
+
+---
+
+C.
+$∃t (Person(t) ∧ Mentioned(t, 'CEO') ∧ InvolvedIn(t, 'Company Meeting'))$
+✅ Correct — directly derived in SR3, based on a report about “Quarterly Earnings” located in “New York”.
+
+---
+
+D.
+$\text{It is false that } ∃w (Report(w) ∧ Subject(w, 'Quarterly Earnings'))$
+❌ Contradicted by SR2, which confirms the existence of such a report.
+
+---
+
+ ✅ Final Answer: C
+
+Answer: {C}
+
+
+----
+Example:
+
+Image: <IMAGE2>
+
+Context:
+1.
+$$
+Speeding(Vehicle) → SafeDistance(Maintained)
+$$
+
+2.
+$$
+SafeDistance(Maintained) → TrafficLaw(Complied)
+$$
+
+3.
+$$
+Speeding(Vehicle) ∨ ¬TrafficLaw(Complied)
+$$
+
+4.
+$$
+EmergencyBraking(Activated) → SafeDistance(Maintained)
+$$
+
+5.
+$$
+Accident(Avoided) → EmergencyBraking(Activated)
+$$
+
+
+Question:
+Given the image and context, please determine whether the below argument is True, False, or Unknown: Accident(Avoided).
+
+
+Syllogistic Reasoning Chain:
+
+ Step 1: SR1
+
+$$
+(P → ¬V1) ∧ (R → S) ∧ (P ∨ ¬S) ⊢ (¬V1 ∨ ¬R)
+$$
+
+Substituted Reasoning:
+
+ Major premise:
+  If a vehicle is speeding, then it is not the case that there exists a vehicle on the road.
+
+  $$
+  Speeding(Vehicle) → ¬∃x (Vehicle(x) ∧ OnRoad(x))
+  $$
+
+  (from context)
+
+ Minor premise:
+  If a safe distance is maintained, then traffic laws are complied with.
+
+  $$
+  SafeDistance(Maintained) → TrafficLaw(Complied)
+  $$
+
+  (from context)
+
+ Auxiliary premise:
+  Either the vehicle is speeding, or traffic laws are not complied with.
+
+  $$
+  Speeding(Vehicle) ∨ ¬TrafficLaw(Complied)
+  $$
+
+  (from context)
+
+ Conclusion:
+  Therefore, either no vehicle is on the road, or a safe distance is not maintained.
+
+  $$
+  ¬∃x (Vehicle(x) ∧ OnRoad(x)) ∨ ¬SafeDistance(Maintained)
+  $$
+
+  (Step 1)
+
+---
+
+ Step 2: SR2
+
+$$
+(¬V1 ∨ ¬R) ∧ V1 ⊢ ¬R
+$$
+
+Substituted Reasoning:
+
+ Major premise:
+  Either there is no vehicle on the road, or a safe distance is not maintained.
+
+  $$
+  ¬∃x (Vehicle(x) ∧ OnRoad(x)) ∨ ¬SafeDistance(Maintained)
+  $$
+
+  (from Step 1)
+
+ Minor premise:
+  There is a vehicle on the road.
+
+  $$
+  ∃x (Vehicle(x) ∧ OnRoad(x))
+  $$
+
+  (from image)
+
+ Conclusion:
+  Therefore, a safe distance is not maintained.
+
+  $$
+  ¬SafeDistance(Maintained)
+  $$
+
+  (Step 2)
+
+---
+
+ Step 3: CR1 (Commonsense Reasoning)
+
+$$
+(R1 → R) ∧ ¬R ⊢ ¬R1
+$$
+
+Substituted Reasoning:
+
+ Major premise:
+  If driver attention is required, then a safe distance will be maintained.
+
+  $$
+  DriverAttention(Required) → SafeDistance(Maintained)
+  $$
+
+  (from commonsense)
+
+ Minor premise:
+  A safe distance is not maintained.
+
+  $$
+  ¬SafeDistance(Maintained)
+  $$
+
+  (from Step 2)
+
+ Conclusion:
+  Therefore, driver attention is not being given.
+
+  $$
+  ¬DriverAttention(Required)
+  $$
+
+  (Step 3)
+
+---
+
+ Step 4: SR3
+
+$$
+(T → (R1 ∧ V2)) ∧ ¬(R1 ∧ V2) ⊢ ¬T
+$$
+
+Substituted Reasoning:
+
+ Major premise:
+  If emergency braking is activated, then driver attention is required and a steering wheel exists in front of the driver.
+
+  $$
+  EmergencyBraking(Activated) → (DriverAttention(Required) ∧ ∃x (SteeringWheel(x) ∧ InFrontOfDriver(x)))
+  $$
+
+  (from context)
+
+ Minor premise:
+  It is not the case that both driver attention is required and a steering wheel is in front of the driver.
+
+  $$
+  ¬(DriverAttention(Required) ∧ ∃x (SteeringWheel(x) ∧ InFrontOfDriver(x)))
+  $$
+
+  (from Step 3 + image)
+
+ Conclusion:
+  Therefore, emergency braking is not activated.
+
+  $$
+  ¬EmergencyBraking(Activated)
+  $$
+
+  (Step 4)
+
+---
+
+ Step 5: CR2 (Commonsense Reasoning)
+
+$$
+(T1 → T) ∧ ¬T ⊢ ¬T1
+$$
+
+Substituted Reasoning:
+
+ Major premise:
+  If immediate action is necessary, then emergency braking is activated.
+
+  $$
+  ImmediateAction(Necessary) → EmergencyBraking(Activated)
+  $$
+
+  (from commonsense)
+
+ Minor premise:
+  Emergency braking is not activated.
+
+  $$
+  ¬EmergencyBraking(Activated)
+  $$
+
+  (from Step 4)
+
+ Conclusion:
+  Therefore, immediate action is not necessary.
+
+  $$
+  ¬ImmediateAction(Necessary)
+  $$
+
+  (Step 5)
+
+---
+
+ Step 6: SR4
+
+$$
+(U → (T1 ∧ V3)) ∧ ¬(T1 ∧ V3) ⊢ ¬U
+$$
+
+Substituted Reasoning:
+
+ Major premise:
+  If an accident is avoided, then immediate action is necessary and a mirror reflects the rear view.
+
+  $$
+  Accident(Avoided) → (ImmediateAction(Necessary) ∧ ∃x (Mirror(x) ∧ ReflectsRearView(x)))
+  $$
+
+  (from context)
+
+ Minor premise:
+  It is not the case that immediate action is necessary and a rear-view mirror is reflecting.
+
+  $$
+  ¬(ImmediateAction(Necessary) ∧ ∃x (Mirror(x) ∧ ReflectsRearView(x)))
+  $$
+
+  (from Step 5 + image)
+
+ Conclusion:
+  Therefore, an accident is not avoided.
+
+  $$
+  ¬Accident(Avoided)
+  $$
+
+  (Step 6)
+
+---
+Final evaluation:
+The reasoning chain deductively leads to ¬Accident(Avoided). Thus, the statment of "Accident(Avoided)" is false.
+Answer: {False}
