@@ -26,6 +26,18 @@ We also conduct a comprehensive error analysis, showing that around 70\% of fail
 ![muslr_stats](./assets/stats.png)
 
 
+## Task Definition
+
+The proposed tasks require models to integrate information from both an **image** *I* and a **text passage** *T* to perform reasoning, ensuring that neither modality alone is sufficient for correct inference. The tasks explicitly emphasize **multimodal reasoning**, where the fusion of visual and textual context is essential for deriving accurate and consistent conclusions.
+
+### Task-I: Truth Evaluation (True / False / Unknown)
+Given an image *I*, a text passage *T*, and an argument *A*, the model must determine the truth value of the argument based on the combined information from *I* and *T*. Specifically, the model outputs the truth value **Truth(A) ∈ {True, False, Unknown}** and generates a sequence of reasoning steps **R = {R₁, R₂, …, Rₙ}**, where each **Rᵢ** represents an individual step that contributes to the final decision. Formally, the input is a triplet **(I, T, A)**, and the output consists of **Truth(A)** and **R**.
+
+### Task-II: Multiple Choice
+Given an image *I*, a text passage *T*, and candidate arguments **{A₁, A₂, A₃, A₄}**, the model must select the argument that best matches the image and text, denoted as **BestArgument(I, T) ∈ {A₁, A₂, A₃, A₄}**. Additionally, the model must provide detailed reasoning steps **R = {R₁, R₂, …, Rₙ}**, where each **Rᵢ** details a step in the reasoning process. Formally, the input is a triplet **(I, T, {A₁, A₂, A₃, A₄})**, and the output consists of **BestArgument(I, T)** and **R**.
+
+
+
 
 
 ## Dataset Format
