@@ -1,4 +1,4 @@
-# Multimodal Symbolic Logical Reasoning (MuSLR)
+# MuSLR: Multimodal Symbolic Logical Reasoning
 
 Coda and Data for NeurIPS 2025 Paper ["Multimodal Symbolic Logical Reasoning"](https://nips.cc/virtual/2025/poster/115490).
 
