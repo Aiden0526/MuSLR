@@ -1,6 +1,7 @@
 # MuSLR: Multimodal Symbolic Logical Reasoning
 
 Coda and Data for NeurIPS 2025 Paper ["Multimodal Symbolic Logical Reasoning"](https://nips.cc/virtual/2025/poster/115490).
+
 Hugging Face Link: https://huggingface.co/datasets/Aiden0526/MuSLR
 
 Authors: [**Jundong Xu**](https://aiden0526.github.io/JundongXu/)<sup>1</sup>, [**Hao Fei**](http://haofei.vip/)<sup>1</sup><sup>*</sup> (Corresponding author), [**Yuhui Zhang**](https://cs.stanford.edu/~yuhuiz/) <sup>2</sup>, [**Liangming Pan**](http://www.liangmingpan.com/)<sup>3</sup>, Qijun Huang<sup>4</sup>, [**Qian Liu**](https://profiles.auckland.ac.nz/liu-qian)<sup>5</sup>, [**Preslav Nakov**](https://mbzuai.ac.ae/study/faculty/preslav-nakov/)<sup>6</sup>, [**William Yang Wang**](https://sites.cs.ucsb.edu/~william/)<sup>7</sup>, [**Mong-Li Lee**](https://www.comp.nus.edu.sg/cs/people/leeml/)<sup>1</sup>, [**Wynne Hsu**](https://www.comp.nus.edu.sg/cs/people/whsu/)<sup>1</sup>
