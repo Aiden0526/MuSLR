@@ -1,6 +1,6 @@
 # MuSLR: Multimodal Symbolic Logical Reasoning
 
-Coda and Data for NeurIPS 2025 Paper ["Multimodal Symbolic Logical Reasoning"](https://nips.cc/virtual/2025/poster/115490).
+Coda and Data for NeurIPS 2025 Paper ["Multimodal Symbolic Logical Reasoning"](https://llm-symbol.github.io/MuSLR/).
 
 Hugging Face Link: https://huggingface.co/datasets/Aiden0526/MuSLR
 
