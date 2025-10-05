@@ -113,6 +113,6 @@ Please cite the paper if you use the data and framework during your research.
     title={Multimodal Symbolic Logical Reasoning},
     booktitle={Proceedings of the Annual Conference on Neural Information Processing Systems},
     year={2025},
-    url={https://nips.cc/virtual/2025/poster/115490}
+    url={https://arxiv.org/abs/2509.25851}
 }
 ```
